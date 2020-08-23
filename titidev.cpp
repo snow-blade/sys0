@@ -1,8 +1,10 @@
 #include<iostream>
 #include<cassert>
 #include<cstring>
+
 void course_credit_management();
 void student_management();
+
 using namespace std;
 class date{
     public:
@@ -11,7 +13,7 @@ class date{
             return day>0 && day <32 && month>0 && month<13 && year>1980; 
         }
         void print(){
-            cout<<"Current date"<< year<< " "<< " "<< month<< " "<< day<<"\n";
+            cout<<"Current date: "<< year<< " "<< " "<< month<< " "<< day<<"\n";
         }
 };
 class course{
@@ -25,18 +27,20 @@ public:
    char *name=new char(),*surname=new char(),*address=new char();
    int registration_number=0;
    date date_of_birth;
-   course course_marks[200];
+   course *course_marks=new course();
    student(int e,char n[],char s[],char *a,course *c,date d){
        name=n;
        registration_number=e;
-       *course_marks=*c;
+       course_marks=c;
        date_of_birth=d;
-       *surname=*s;
-       *address=*a;
+       surname=s;
+       address=a;
    }
    
 
 };
+void change_characteristics(student st);
+
 
 int main(){
 
@@ -52,6 +56,7 @@ void course_credit_management(){
     assert(m>6 && "m must be bigger than 6");
     assert(m<15 && "m must be less than 15");
     int n=m+1;
+    int sum=0;
     course cc[m];
     while(m>0){
         cout<<"----- Course n0"<<n-m<<" ------\n";
@@ -59,17 +64,15 @@ void course_credit_management(){
         cin>>cc[n-m-1].credit;
         cout<< "Enter the value of the title: ";
         cin>>cc[n-m-1].title;
-        cout<< "Enter the value of the mark: ";
-        cin>>cc[n-m-1].mark;
-        cout<< "\n\n";
+        sum+=cc[n-m-1].credit;
         m--;
     }
+    assert(sum==30 && "Credit sum must be equal to 30");
     m=n-1;
     cout<<"\n-----------------Result-------------\n";
     while(m>0){
       cout<<"\ncourse "<<n-m<<" title: "<<cc[n-m-1].title;
       cout<<"\ncourse"<<n-m<<" credit: "<< cc[n-m-1].credit;
-      cout<<"\ncourse "<<n-m<<" mark: "<<cc[n-m-1].mark;
       m--;
     }
 }
@@ -120,10 +123,28 @@ void student_management(){
    cout<<"Name: "<<st.name<<"\n";
    cout<<"Surname: "<< st.surname<<"\n";
    cout<<"Address: "<< st.address<<"\n";
-   cout<<"Registration number: "<< st.registation_number<<"\n";
-   cout<< "Birth Date: "<< date_of_birth;
-    
-
-
-
+   cout<<"Registration number: "<< st.registration_number<<"\n";
+   st.date_of_birth.print();
+   cout<< "do you wish to change students characteristics?y/n";
+   string answer;
+   cin>>answer;
+   if(answer=="yes"||answer=="y"){
+       change_characteristics(st);
+   }
+}
+void change_characteristics(student st){
+    cout<<"name>";
+    cin>>st.name;
+    cout<<"surname>";
+    cin>>st.surname;
+    cout<< "address>";
+    cin>>st.address;
+    cout<<"Registration number>";
+    cin>>st.registration_number;
+    cout<<"year of birth>";
+    cin>>st.date_of_birth.year;
+    cout<<"month of birth>";
+    cin>> st.date_of_birth.month;
+    cout<<"day of birth>";
+    cin>> st.date_of_birth.day;
 }
