@@ -10,7 +10,9 @@ class date{
         bool is_valid(){
             return day>0 && day <32 && month>0 && month<13 && year>1980; 
         }
-
+        void print(){
+            cout<<"Current date"<< year<< " "<< " "<< month<< " "<< day<<"\n";
+        }
 };
 class course{
    public:
@@ -81,21 +83,21 @@ void student_management(){
     cout<<"\nenter the day: ";
     cin>> dd.day;
     assert(dd.is_valid() && "the data you entered is not valid");
-    cout<< "the date is "<< dd.year <<" "<<dd.month<<" "<< dd.day;
-    cout<<"\n\n ----- Create a new student ----- ";
-    cout<<"\n ---- Enter his name: ";
+    dd.print();
+    cout<<"\n\n----- Create a new student ----- ";
+    cout<<"\n----> Enter his name: ";
     char name[20];
     cin>>name;
-    cout<<"\n---- Enter the surname: ";
+    cout<<"\n----> Enter the surname: ";
     char surname[20];
     cin>>surname;
-    cout<<"\n---- Enter the address: ";
+    cout<<"\n----> Enter the address: ";
     char address[20];
     cin>>address;
-    cout<<"---- Enter the registration number: ";
+    cout<<"----> Enter the registration number: ";
     int reg=0;
     cin>>reg;
-        int m;
+    int m;
     cout<< "enter the number 'm' of courses: ";
     cin>> m;
     assert(m>6 && "m must be bigger than 6");
@@ -114,8 +116,13 @@ void student_management(){
         m--;
     }
    student st=student(reg,name,surname,address,cc,dd);
-   cout<<st.name;
- 
+   cout<<"\n\n\n";
+   cout<<"Name: "<<st.name<<"\n";
+   cout<<"Surname: "<< st.surname<<"\n";
+   cout<<"Address: "<< st.address<<"\n";
+   cout<<"Registration number: "<< st.registation_number<<"\n";
+   cout<< "Birth Date: "<< date_of_birth;
+    
 
 
 
