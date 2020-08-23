@@ -24,11 +24,13 @@ public:
    int registration_number=0;
    date date_of_birth;
    course course_marks[200];
-   student(int e,char n[],course c,date d){
+   student(int e,char n[],char s[],char a[],course c,date d){
        *name=*n;
        registration_number=e;
        course_marks[0]=c;
        date_of_birth=d;
+       *surname=*s;
+       *address=*a;
    }
    
 
@@ -40,9 +42,11 @@ int main(){
 student_management();
 }
 
-course course_credit_management(int m){
+void course_credit_management(){
     cout<< "--------- Course credit management system ---------------\n";
+    int m;
     cout<< "enter the value of m: ";
+    cin>> m;
     assert(m>6 && "m must be bigger than 6");
     assert(m<15 && "m must be less than 15");
     int n=m+1;
@@ -66,7 +70,6 @@ course course_credit_management(int m){
       cout<<"\ncourse "<<n-m<<" mark: "<<cc[n-m-1].mark;
       m--;
     }
-    return *cc;
 }
 void student_management(){
     date dd;
@@ -78,7 +81,7 @@ void student_management(){
     cout<<"\n enter the day: ";
     cin>> dd.day;
     assert(dd.is_valid() && "the data you entered is not valid");
-    cout<< "the date is "<< dd.year <<" "<<dd.month<<" "<< dd.day;
+    cout<< "the date is "<< year <<" "<<month<<" "<< day;
     cout<<"\n\n ----- Create a new student ----- ";
     cout<<"\n ---- Enter his name: ";
     char name[20];
@@ -89,18 +92,11 @@ void student_management(){
     cout<<"\n---- Enter the address: ";
     char address[20];
     cin>>address;
-    cout<<"\n---- Enter the registration number: ";
+    cout<<"---- Enter the registration number: ";
     int reg=0;
     cin>>reg;
-    cout<<"\n---- Enter the number of courses: ";
-    int m=0;
-    cin>>m;
-    course c=course_credit_management(m);
-
-
-
-
-
+       
+ 
 
 
 }
