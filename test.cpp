@@ -7,7 +7,6 @@ void
 course_credit_management();
 void
 student_management();
-void print_vector(vector<int> v)
 using namespace std;
 
 int M_LENGHT = 0;
@@ -369,26 +368,6 @@ void student_management_worst(vector<student> v){
     int m=n;
     while(m){
         cout<<"Worst of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_worst(v[n-m].course_marks);
-    }
-}
-void student_management_bel_av(vector<student> v){
-    int n=v.size();
-    int m=n;
-    while(m){
-        cout<<"Marks below average of"<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_bel_av(v[n-m].course_marks);
-    }
-}
-
-void print_vector(vector<int> v){
-    for(int i=0;i<v.size();i++){
-        cout<< v[i]<<" ";
-    }
-}
-void student_management_ab_av(vector<student> v){
-    int n=v.size();
-    int m=n;
-    while(m){
-        cout<<"Marks below average of"<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_bel_av(v[n-m].course_marks);
     }
 }
 
