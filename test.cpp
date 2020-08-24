@@ -3,35 +3,45 @@
 #include <iostream>
 #include <vector>
 
-void course_credit_management();
-void student_management();
+void
+course_credit_management();
+void
+student_management();
 using namespace std;
 
 int M_LENGHT = 0;
-class date {
-  public:
+class date
+{
+   public:
     int day, month, year = 0;
-    bool is_valid() {
+    bool
+    is_valid()
+    {
         return day > 0 && day < 32 && month > 0 && month < 13 && year > 1980;
     }
-    void print() {
+    void
+    print()
+    {
         cout << "Current date: " << year << " "
              << " " << month << " " << day << "\n";
     }
 };
-class course {
-  public:
+class course
+{
+   public:
     int credit = 0;
     char title[20] = "";
     int mark = 0;
 };
-class student {
-  public:
+class student
+{
+   public:
     char *name = new char(), *surname = new char(), *address = new char();
     int registration_number = 0;
     date date_of_birth;
-    course* course_marks = new course();
-    student(int e, char n[], char s[], char* a, course* c, date d) {
+    course *course_marks = new course();
+    student(int e, char n[], char s[], char *a, course *c, date d)
+    {
         name = n;
         registration_number = e;
         course_marks = c;
@@ -40,34 +50,54 @@ class student {
         address = a;
     }
 };
-void change_characteristics(student st);
-student *student_management_create();
-void student_management_display(student *st);
-void student_management_av(student *st);
-void student_management_best(student *st);
-void student_management_best_mark_by_course(student *st);
-void student_management_worst_mark_by_course(student *st);
-void student_management_best_by_course(student *st);
-void student_management_display_by_av(student *st);
+void
+change_characteristics(student st);
+vector<student>
+student_management_create();
+void
+student_management_display(student *st);
+void
+student_management_av(student *st);
+void
+student_management_best(student *st);
+void
+student_management_best_mark_by_course(student *st);
+void
+student_management_worst_mark_by_course(student *st);
+void
+student_management_best_by_course(student *st);
+void
+student_management_display_by_av(student *st);
 
-course* marks_management_create();
-void marks_management_display(course* m);
-course* marks_management_modify(course* m, int j);
-int marks_management_av(course* m);
-int marks_management_best(course* m);
-int marks_management_worst(course* m);
-vector<int> marks_management_bel_av(course* m);
-vector<int> *marks_management_ab_av(course *m);
+course *
+marks_management_create();
+void
+marks_management_display(course *m);
+course *
+marks_management_modify(course *m, int j);
+int
+marks_management_av(course *m);
+int
+marks_management_best(course *m);
+int
+marks_management_worst(course *m);
+vector<int>
+marks_management_bel_av(course *m);
+vector<int>
+marks_management_ab_av(course *m);
 
-int main() {
-
+int
+main()
+{
     // course_credit_management();
     // student_management();
-    course* st = marks_management_create();
+    course *st = marks_management_create();
     marks_management_display(st);
 }
 
-void course_credit_management() {
+void
+course_credit_management()
+{
     cout << "--------- Course credit management system ---------------\n";
     int m;
     cout << "enter the value of m: ";
@@ -95,7 +125,9 @@ void course_credit_management() {
         m--;
     }
 }
-void student_management() {
+void
+student_management()
+{
     date dd;
     cout << "-------- Student management system --------\n\n";
     cout << "enter the year: ";
@@ -151,7 +183,9 @@ void student_management() {
         change_characteristics(st);
     }
 }
-void change_characteristics(student st) {
+void
+change_characteristics(student st)
+{
     cout << "name>";
     cin >> st.name;
     cout << "surname>";
@@ -167,9 +201,11 @@ void change_characteristics(student st) {
     cout << "day of birth>";
     cin >> st.date_of_birth.day;
 }
-course* marks_management_create() {
+course *
+marks_management_create()
+{
     int m = 0;
-    course* cc = new course();
+    course *cc = new course();
     cout << "---- Course  marks management ----\n";
     cout << "Enter the number of courses\n";
     cin >> m;
@@ -185,7 +221,9 @@ course* marks_management_create() {
     }
     return cc;
 }
-void marks_management_display(course* m) {
+void
+marks_management_display(course *m)
+{
     int l = M_LENGHT;
     while (l) {
         cout << "\n\n"
@@ -194,12 +232,16 @@ void marks_management_display(course* m) {
         l--;
     }
 }
-course* marks_management_modify(course* m, int j) {
+course *
+marks_management_modify(course *m, int j)
+{
     cout << "new mark>";
     cin >> m[j].mark;
     return m;
 }
-int marks_management_av(course* m) {
+int
+marks_management_av(course *m)
+{
     int l = M_LENGHT;
     int total = 0;
     while (l) {
@@ -207,7 +249,9 @@ int marks_management_av(course* m) {
     }
     return total / M_LENGHT;
 }
-int marks_management_best(course* m) {
+int
+marks_management_best(course *m)
+{
     int l = M_LENGHT;
     int best = 0;
     while (l) {
@@ -217,7 +261,9 @@ int marks_management_best(course* m) {
     }
     return best;
 }
-int marks_management_worst(course* m) {
+int
+marks_management_worst(course *m)
+{
     int l = M_LENGHT;
     int worst = 0;
     while (l) {
@@ -227,7 +273,9 @@ int marks_management_worst(course* m) {
     }
     return worst;
 }
-vector<int> marks_management_bel_av(course* m) {
+vector<int>
+marks_management_bel_av(course *m)
+{
     vector<int> bel_av;
     int l = M_LENGHT;
     int av = marks_management_av(m);
@@ -238,7 +286,9 @@ vector<int> marks_management_bel_av(course* m) {
     }
     return bel_av;
 }
-vector<int> marks_management_ab_av(course* m) {
+vector<int>
+marks_management_ab_av(course *m)
+{
     vector<int> ab_av;
     int l = M_LENGHT;
     int av = marks_management_av(m);
@@ -249,36 +299,66 @@ vector<int> marks_management_ab_av(course* m) {
     }
     return ab_av;
 }
-student *student_management_create(){
-      student *all=new student();
-      cout<< "enter the number of students";
-      int n;
-      cin>>n;
-      int m=n+1;
-      int reg_num=0;
-      char *name=new char();
-      char *surname=new char();
-      char *address=new char();
-      date dt;
-      course *course_marks=new course()
-      assert(n>0 && "n must be greater than 0");
-      while(n){
-          cout<<"---- Student number ----"<<m-n<<"\n";
-          cout<<"Enter the name> "<<"\n";
-          cin>>name;
-          cout<<"Enter the surname> "<< "\n";
-          cin>>surname;
-          cout<<"Enter the registration number> "<<"\n";
-          cin>>reg_num;
-          cout<<"Enter the day of birth> "<<"\n";
-          cin>>dt.day;
-          cout<<"Enter the month of birth> "<<"\n";
-          cout<<"enter the year of birth> "<<"\n";
-          cin>>dt.year;
-          course_marks= marks_management_create();
-          
-          n--;
-      }
-
-
+vector<student>
+student_management_create()
+{
+    vector<student> all;
+    cout << "enter the number of students";
+    int n;
+    cin >> n;
+    int m = n + 1;
+    int reg_num = 0;
+    char *name = new char();
+    char *surname = new char();
+    char *address = new char();
+    date dt;
+    course *course_marks = new course();
+    assert(n > 0 && "n must be greater than 0");
+    while (n) {
+        cout << "---- Student number ----" << m - n << "\n";
+        cout << "Enter the name> "
+             << "\n";
+        cin >> name;
+        cout << "Enter the surname> "
+             << "\n";
+        cin >> surname;
+        cout << "Enter the registration number> "
+             << "\n";
+        cin >> reg_num;
+        cout << "Enter the day of birth> "
+             << "\n";
+        cin >> dt.day;
+        cout << "Enter the month of birth> "
+             << "\n";
+        cout << "enter the year of birth> "
+             << "\n";
+        cin >> dt.year;
+        course_marks = marks_management_create();
+        all.push_back(
+            student(reg_num, name, surname, address, course_marks, dt));
+        n--;
+    }
+    return all;
 }
+void student_management_display(vector<student> v,int n){
+    cout<<"--- Displaying"<<n<<"students ----\n";
+    int m=n;
+    while(m){
+        cout<<"Student number "<< n-m+1<<"\n";
+        cout<<"Name: "<<v[n-m].name<<"\n";
+        cout<<"Surame: "<<v[n-m].surname<<"\n";
+        cout<<"Address: "<<v[n-m].Address<<"\n";
+        v[n-m].date_of_birth.print();
+        cout<<"----  Courses  ----";
+        marks_management_display(v[n-m].course_marks);
+        m--;
+    }
+}
+void student_management_av(vector<student> v){
+    int n=v.size();
+    m=n;
+    while(m){
+        cout<<"Average of"<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_av(v[n-m].course_marks);
+    }
+}
+
