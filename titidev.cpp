@@ -1,11 +1,14 @@
 #include<iostream>
 #include<cassert>
 #include<cstring>
+#include<vector>
+
 
 void course_credit_management();
 void student_management();
-
 using namespace std;
+
+int M_LENGHT=0;
 class date{
     public:
         int day,month,year=0;
@@ -19,7 +22,7 @@ class date{
 class course{
    public:
        int credit=0;
-       char title[20];
+       char title[20]="";
        int mark=0;
 };
 class student{
@@ -40,12 +43,21 @@ public:
 
 };
 void change_characteristics(student st);
-
+course *marks_management_create();
+void marks_management_display(course *m);
+course *marks_management_modify(course *m,int j);
+int marks_management_av(course *m);
+int marks_management_best(course *m);
+int marks_management_worst(course *m);
+vector<int> marks_management_bel_av(course *m);
+//vector<int> *marks_management_ab_av(course *m);
 
 int main(){
 
 //course_credit_management();
-student_management();
+//student_management();
+course *st=marks_management_create();
+marks_management_display(st);
 }
 
 void course_credit_management(){
@@ -147,4 +159,83 @@ void change_characteristics(student st){
     cin>> st.date_of_birth.month;
     cout<<"day of birth>";
     cin>> st.date_of_birth.day;
+}
+course *marks_management_create(){
+    int m=0;
+    course *cc=new course();
+    cout<<"---- Course  marks management ----\n";
+    cout<<"Enter the number of courses\n";
+    cin>>m;
+    int n=m+1;
+    while(m){
+        cout<<"Enter the title of the course number "<< n-m<<"\n";
+        cin>>cc[n-m-1].title;
+        cout<<"Enter the marks of the student in course number "<<n-m<<"\n";
+        cin>>cc[n-m-1].mark;
+        M_LENGHT+=1;
+        m--;
+    }
+    return cc;
+}
+void marks_management_display(course *m){
+     int l=M_LENGHT;
+     while(l){
+         cout<<"\n\n"<< M_LENGHT-l+1 <<".title: "<<m[M_LENGHT-l].title<<", marks: "<<m[M_LENGHT-l].mark<<"\n"; 
+         l--;
+     }
+}
+course *marks_management_modify(course *m,int j){
+    cout<<"new mark>";
+    cin>>m[j].mark;
+    return m;
+}
+int marks_management_av(course *m){
+    int l=M_LENGHT;
+    int total=0;
+    while(l){
+        total+=m[M_LENGHT-l].mark;
+    }
+    return total/M_LENGHT;
+}
+int marks_management_best(course *m){
+    int l=M_LENGHT;
+    int best=0;
+    while(l){
+        if( m[M_LENGHT-1].mark>best){
+            best=m[M_LENGHT-1].mark;
+        }
+    }
+    return best;
+}
+int marks_management_worst(course *m){
+   int l=M_LENGHT;
+   int worst=0;
+   while(l){
+       if( m[M_LENGHT-l].mark<worst){
+          worst=m[M_LENGHT-l].mark;
+       }
+   }
+   return worst;
+}
+vector<int> marks_management_bel_av(course *m){
+    vector<int> bel_av;
+    int l=M_LENGHT;
+    int av=marks_management_av(m);
+    while(l){
+        if(m[M_LENGHT-l].mark<av){
+            bel_av.push_back(m[M_LENGHT-l].mark);
+        }
+    }
+    return bel_av;
+}
+vector<int> marks_management_ab_av(course *m){
+    vector<int> ab_av;
+    int l=M_LENGHT;
+    int av=marks_management_av(m);
+    while(l){
+        if(m[M_LENGHT-l].mark<av){
+            ab_av.push_back(m[M_LENGHT-l].mark);
+        }
+    }
+    return ab_av;
 }
