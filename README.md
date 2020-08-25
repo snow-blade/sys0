@@ -3,4 +3,5 @@ A proof of work backend for a school management system (currently wrote over 900
 
 To compile just run:
 $ c++ work.cpp -o work
+
 $ ./work
