@@ -2,13 +2,23 @@
 #include <cstring>
 #include <iostream>
 #include <vector>
+#include "TextTable.h"
+#include "rang.hpp"
+
+using namespace std;
+using namespace rang;
+
 
 void
 course_credit_management();
 void
 student_management();
-using namespace std;
-
+void menu_display();
+void
+handle(int n);
+void
+print_vec(std::vector<int> v);
+void marks_menu();
 int M_LENGHT = 0;
 class date
 {
@@ -22,7 +32,7 @@ class date
     void
     print()
     {
-        cout << "Current date: " << year << " "
+        cout<<fg::green<< "Current date: " << year << " "
              << " " << month << " " << day << "\n";
     }
 };
@@ -89,18 +99,19 @@ marks_management_ab_av(course *m);
 int
 main()
 {
-    // course_credit_management();
-    // student_management();
-  vector<student> st = student_management_create();
-  student_management_display(st,1);
+   menu_display();
+   cout<<fg::red<<" Enter your choice> ";
+   int n;
+   cin>>n;
+   handle(n);
 }
 
 void
 course_credit_management()
 {
-    cout << "--------- Course credit management system ---------------\n";
+    cout<<fg::green<< "--------- Course credit management system ---------------\n";
     int m;
-    cout << "enter the value of m: ";
+    cout<<fg::green<< "enter the value of m: ";
     cin >> m;
     assert(m > 6 && "m must be bigger than 6");
     assert(m < 15 && "m must be less than 15");
@@ -108,20 +119,20 @@ course_credit_management()
     int sum = 0;
     course cc[m];
     while (m > 0) {
-        cout << "----- Course n0" << n - m << " ------\n";
-        cout << "Enter the value of the credit: ";
+        cout<<fg::green<< "----- Course n0" << n - m << " ------\n";
+        cout<<fg::green<< "Enter the value of the credit: ";
         cin >> cc[n - m - 1].credit;
-        cout << "Enter the value of the title: ";
+        cout<<fg::green<< "Enter the value of the title: ";
         cin >> cc[n - m - 1].title;
         sum += cc[n - m - 1].credit;
         m--;
     }
     assert(sum == 30 && "Credit sum must be equal to 30");
     m = n - 1;
-    cout << "\n-----------------Result-------------\n";
+    cout<<fg::green<< "\n-----------------Result-------------\n";
     while (m > 0) {
-        cout << "\ncourse " << n - m << " title: " << cc[n - m - 1].title;
-        cout << "\ncourse" << n - m << " credit: " << cc[n - m - 1].credit;
+        cout<<fg::green<< "\ncourse " << n - m << " title: " << cc[n - m - 1].title;
+        cout<<fg::green<< "\ncourse" << n - m << " credit: " << cc[n - m - 1].credit;
         m--;
     }
 }
@@ -129,54 +140,54 @@ void
 student_management()
 {
     date dd;
-    cout << "-------- Student management system --------\n\n";
-    cout << "enter the year: ";
+    cout<<fg::green<< "-------- Student management system --------\n\n";
+    cout<<fg::green<< "enter the year: ";
     cin >> dd.year;
-    cout << "\nenter the month: ";
+    cout<<fg::green<< "\nenter the month: ";
     cin >> dd.month;
-    cout << "\nenter the day: ";
+    cout<<fg::green<< "\nenter the day: ";
     cin >> dd.day;
     assert(dd.is_valid() && "the data you entered is not valid");
     dd.print();
-    cout << "\n\n----- Create a new student ----- ";
-    cout << "\n----> Enter his name: ";
+    cout<<fg::green<< "\n\n----- Create a new student ----- ";
+    cout<<fg::green<< "\n----> Enter his name: ";
     char name[20];
     cin >> name;
-    cout << "\n----> Enter the surname: ";
+    cout<<fg::green<< "\n----> Enter the surname: ";
     char surname[20];
     cin >> surname;
-    cout << "\n----> Enter the address: ";
+    cout<<fg::green<< "\n----> Enter the address: ";
     char address[20];
     cin >> address;
-    cout << "----> Enter the registration number: ";
+    cout<<fg::green<< "----> Enter the registration number: ";
     int reg = 0;
     cin >> reg;
     int m;
-    cout << "enter the number 'm' of courses: ";
+    cout<<fg::green<< "enter the number 'm' of courses: ";
     cin >> m;
     assert(m > 6 && "m must be bigger than 6");
     assert(m < 15 && "m must be less than 15");
     int n = m + 1;
     course cc[m];
     while (m > 0) {
-        cout << "----- Course n0" << n - m << " ------\n";
-        cout << "Enter the value of the credit: ";
+        cout<<fg::green<< "----- Course n0" << n - m << " ------\n";
+        cout<<fg::green<< "Enter the value of the credit: ";
         cin >> cc[n - m - 1].credit;
-        cout << "Enter the value of the title: ";
+        cout<<fg::green<< "Enter the value of the title: ";
         cin >> cc[n - m - 1].title;
-        cout << "Enter the value of the mark: ";
+        cout<<fg::green<< "Enter the value of the mark: ";
         cin >> cc[n - m - 1].mark;
-        cout << "\n\n";
+        cout<<fg::green<< "\n\n";
         m--;
     }
     student st = student(reg, name, surname, address, cc, dd);
-    cout << "\n\n\n";
-    cout << "Name: " << st.name << "\n";
-    cout << "Surname: " << st.surname << "\n";
-    cout << "Address: " << st.address << "\n";
-    cout << "Registration number: " << st.registration_number << "\n";
+    cout<<fg::green<< "\n\n\n";
+    cout<<fg::green<< "Name: " << st.name << "\n";
+    cout<<fg::green<< "Surname: " << st.surname << "\n";
+    cout<<fg::green<< "Address: " << st.address << "\n";
+    cout<<fg::green<< "Registration number: " << st.registration_number << "\n";
     st.date_of_birth.print();
-    cout << "do you wish to change students characteristics?y/n";
+    cout<<fg::green<< "do you wish to change students characteristics?y/n";
     string answer;
     cin >> answer;
     if (answer == "yes" || answer == "y") {
@@ -186,34 +197,35 @@ student_management()
 void
 change_characteristics(student st)
 {
-    cout << "name>";
+    cout<<fg::green<< "name>";
     cin >> st.name;
-    cout << "surname>";
+    cout<<fg::green<< "surname>";
     cin >> st.surname;
-    cout << "address>";
+    cout<<fg::green<< "address>";
     cin >> st.address;
-    cout << "Registration number>";
+    cout<<fg::green<< "Registration number>";
     cin >> st.registration_number;
-    cout << "year of birth>";
+    cout<<fg::green<< "year of birth>";
     cin >> st.date_of_birth.year;
-    cout << "month of birth>";
+    cout<<fg::green<< "month of birth>";
     cin >> st.date_of_birth.month;
-    cout << "day of birth>";
+    cout<<fg::green<< "day of birth>";
     cin >> st.date_of_birth.day;
 }
 course *
 marks_management_create()
 {
+	M_LENGHT=0;
     int m = 0;
     course *cc = new course();
-    cout << "---- Course  marks management ----\n";
-    cout << "Enter the number of courses\n";
+    cout<<fg::green<< "---- Course  marks management ----\n";
+    cout<<fg::green<< "Enter the number of courses\n";
     cin >> m;
     int n = m + 1;
     while (m) {
-        cout << "Enter the title of the course number " << n - m << "\n";
+        cout<<fg::green<< "Enter the title of the course number " << n - m << "\n";
         cin >> cc[n - m - 1].title;
-        cout << "Enter the marks of the student in course number " << n - m
+        cout<<fg::green<< "Enter the marks of the student in course number " << n - m
              << "\n";
         cin >> cc[n - m - 1].mark;
         M_LENGHT += 1;
@@ -226,7 +238,7 @@ marks_management_display(course *m)
 {
     int l = M_LENGHT;
     while (l) {
-        cout << "\n\n"
+        cout<<fg::green<< "\n\n"
              << M_LENGHT - l + 1 << ".title: " << m[M_LENGHT - l].title
              << ", marks: " << m[M_LENGHT - l].mark << "\n";
         l--;
@@ -235,7 +247,7 @@ marks_management_display(course *m)
 course *
 marks_management_modify(course *m, int j)
 {
-    cout << "new mark>";
+    cout<<fg::green<< "new mark>";
     cin >> m[j].mark;
     return m;
 }
@@ -246,6 +258,7 @@ marks_management_av(course *m)
     int total = 0;
     while (l) {
         total += m[M_LENGHT - l].mark;
+        l--;
     }
     return total / M_LENGHT;
 }
@@ -258,6 +271,7 @@ marks_management_best(course *m)
         if (m[M_LENGHT - 1].mark > best) {
             best = m[M_LENGHT - 1].mark;
         }
+        l--;
     }
     return best;
 }
@@ -270,6 +284,7 @@ marks_management_worst(course *m)
         if (m[M_LENGHT - l].mark < worst) {
             worst = m[M_LENGHT - l].mark;
         }
+        l--;
     }
     return worst;
 }
@@ -283,6 +298,7 @@ marks_management_bel_av(course *m)
         if (m[M_LENGHT - l].mark < av) {
             bel_av.push_back(m[M_LENGHT - l].mark);
         }
+        l--;
     }
     return bel_av;
 }
@@ -296,6 +312,7 @@ marks_management_ab_av(course *m)
         if (m[M_LENGHT - l].mark < av) {
             ab_av.push_back(m[M_LENGHT - l].mark);
         }
+        l--;
     }
     return ab_av;
 }
@@ -303,7 +320,7 @@ vector<student>
 student_management_create()
 {
     vector<student> all;
-    cout << "enter the number of students";
+    cout<<fg::green<< "enter the number of students";
     int n;
     cin >> n;
     int m = n + 1;
@@ -315,18 +332,18 @@ student_management_create()
     course *course_marks = new course();
     assert(n > 0 && "n must be greater than 0");
     while (n) {
-        cout << "---- Student number ----" << m - n << "\n";
-        cout << "Enter the name> ";
+        cout<<fg::green<< "---- Student number ----" << m - n << "\n";
+        cout<<fg::green<< "Enter the name> ";
         cin >> name;
-        cout << "Enter the surname> ";
+        cout<<fg::green<< "Enter the surname> ";
         cin >> surname;
-        cout << "Enter the registration number> ";
+        cout<<fg::green<< "Enter the registration number> ";
         cin >> reg_num;
-        cout << "Enter the day of birth> ";
+        cout<<fg::green<< "Enter the day of birth> ";
         cin >> dt.day;
-        cout << "Enter the month of birth> ";
+        cout<<fg::green<< "Enter the month of birth> ";
         cin >> dt.month;
-        cout << "enter the year of birth> ";
+        cout<<fg::green<< "enter the year of birth> ";
         cin >> dt.year;
         course_marks = marks_management_create();
         all.push_back(
@@ -336,15 +353,15 @@ student_management_create()
     return all;
 }
 void student_management_display(vector<student> v,int n){
-    cout<<"--- Displaying "<<n<<" students ----\n";
+    cout<<fg::green<<"--- Displaying "<<n<<" students ----\n";
     int m=n;
     while(m){
-        cout<<"Student number "<< n-m+1<<"\n";
-        cout<<"Name: "<<v[n-m].name<<"\n";
-        cout<<"Surame: "<<v[n-m].surname<<"\n";
-        cout<<"Address: "<<v[n-m].address<<"\n";
+        cout<<fg::green<<"Student number "<< n-m+1<<"\n";
+        cout<<fg::green<<"Name: "<<v[n-m].name<<"\n";
+        cout<<fg::green<<"Surame: "<<v[n-m].surname<<"\n";
+        cout<<fg::green<<"Address: "<<v[n-m].address<<"\n";
         v[n-m].date_of_birth.print();
-        cout<<"----  Courses  ----";
+        cout<<fg::green<<"----  Courses  ----";
         marks_management_display(v[n-m].course_marks);
         m--;
     }
@@ -353,21 +370,133 @@ void student_management_av(vector<student> v){
     int n=v.size();
     int m=n;
     while(m){
-        cout<<"Average of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_av(v[n-m].course_marks);
+        cout<<fg::green<<"Average of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_av(v[n-m].course_marks);
     }
 }
 void student_management_best(vector<student> v){
     int n=v.size();
     int m=n;
     while(m){
-        cout<<"Best of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_best(v[n-m].course_marks);
+        cout<<fg::green<<"Best of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_best(v[n-m].course_marks);
     }
 }
 void student_management_worst(vector<student> v){
     int n=v.size();
     int m=n;
     while(m){
-        cout<<"Worst of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_worst(v[n-m].course_marks);
+        cout<<fg::green<<"Worst of "<<v[n-m].name<<" "<<v[n-m].surname<<marks_management_worst(v[n-m].course_marks);
     }
 }
 
+void menu_display(){
+    TextTable t('-','|','#');
+    t.add("List Of Available Operations");
+    TextTable menu('-',' ',' ');
+    t.endOfRow();
+    menu.add("Enter 1 for");
+    menu.add("Course Credit Management");
+    menu.endOfRow();
+    menu.add("Enter 2 for");
+    menu.add("Student Management");
+    menu.endOfRow();
+    menu.add("Enter 3 for");
+    menu.add("Course Marks Management");
+    menu.endOfRow();
+    menu.add("Enter 4 for");
+    menu.add("Class student Management");
+    menu.endOfRow();
+    menu.setAlignment( 0, TextTable::Alignment::LEFT );
+    t.setAlignment( 2, TextTable::Alignment::LEFT );
+    cout<<fg::green<<t<<fg::blue<<menu;
+    
+}
+void handle(int n){
+     switch(n){
+     	case 1:
+     	       course_credit_management();
+     	       break;
+     	case 2: 
+     	     student_management();
+     	     break;
+     	case 3:
+     	     marks_menu();
+
+     }
+}
+void print_vec(std::vector<int> v){
+	int r=v.size();
+	int n=r;
+	while(n){
+		cout<< v[r-n];
+		n--;
+	}
+	cout<<"\n";
+}
+void marks_menu(){
+	course *marks;
+	std::vector<int> v;
+    bool loop=true;
+    TextTable t('-','|','#');
+    t.add("Marks Management Menu");
+    TextTable menu('-',' ',' ');
+    t.endOfRow();
+    menu.add("Enter 1 for");
+    menu.add("Marks Management Creation");
+    menu.endOfRow();
+    menu.add("Enter 2 for");
+    menu.add("Marks Management Displaying");
+    menu.endOfRow();
+    menu.add("Enter 3 for");
+    menu.add("Marks Management Average");
+    menu.endOfRow();
+    menu.add("Enter 4 for");
+    menu.add("Marks Management Best");
+    menu.endOfRow();
+    menu.add("Enter 5 for");
+    menu.add("Marks Management Worst");
+    menu.endOfRow();
+    menu.add("Enter 6 for");
+    menu.add("Marks Management Above Average");
+    menu.endOfRow();
+    menu.add("Enter 7 for");
+    menu.add("Marks Management Below Average");
+    menu.add("Enter 8 to");
+    menu.add("CLose");
+    menu.endOfRow();    
+    menu.setAlignment( 0, TextTable::Alignment::LEFT );
+    t.setAlignment( 2, TextTable::Alignment::LEFT );
+    cout<<fg::green<<t<<fg::blue<<menu;
+    int choice;
+    while(loop){
+    cout<<fg::blue<<"Enter your choice> ";
+    cin>>choice;
+    switch(choice){
+    	case 1:
+    	   marks=marks_management_create();
+    	   break;
+    	case 2:
+    	    marks_management_display(marks);
+    	    break;
+    	case 3:
+    	     marks_management_av(marks);
+    	     break;
+    	case 4:
+    	     marks_management_best(marks);
+    	     break;
+    	case 5:
+    	     marks_management_worst(marks);
+    	     break;
+    	case 6:
+            v=marks_management_ab_av(marks);
+            print_vec(v);
+            break;
+        case 7:
+            v=marks_management_bel_av(marks);
+            print_vec(v);
+            break;
+        case 8:
+              loop=false;
+              break;
+    }
+  }
+}
