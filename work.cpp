@@ -20,6 +20,7 @@ void
 print_vec(std::vector<int> v);
 void
 marks_menu();
+void student_management_menu();
 int M_LENGHT = 0;
 class date
 {
@@ -37,6 +38,7 @@ class date
              << " " << month << " " << day << "\n";
     }
 };
+
 class course
 {
    public:
@@ -103,7 +105,29 @@ main()
     	usleep(1000);
     }
     bar.finish();
-    cout<< fg::cyan<<"School Managemt system"<<"\n";
+    string s=R"(          _____                    _____                    _____          
+         /\    \                  /\    \                  /\    \         
+        /::\    \                /::\____\                /::\    \        
+       /::::\    \              /::::|   |               /::::\    \       
+      /::::::\    \            /:::::|   |              /::::::\    \      
+     /:::/\:::\    \          /::::::|   |             /:::/\:::\    \     
+    /:::/__\:::\    \        /:::/|::|   |            /:::/__\:::\    \    
+    \:::\   \:::\    \      /:::/ |::|   |            \:::\   \:::\    \   
+  ___\:::\   \:::\    \    /:::/  |::|___|______    ___\:::\   \:::\    \  
+ /\   \:::\   \:::\    \  /:::/   |::::::::\    \  /\   \:::\   \:::\    \ 
+/::\   \:::\   \:::\____\/:::/    |:::::::::\____\/::\   \:::\   \:::\____\
+\:::\   \:::\   \::/    /\::/    / ~~~~~/:::/    /\:::\   \:::\   \::/    /
+ \:::\   \:::\   \/____/  \/____/      /:::/    /  \:::\   \:::\   \/____/ 
+  \:::\   \:::\    \                  /:::/    /    \:::\   \:::\    \     
+   \:::\   \:::\____\                /:::/    /      \:::\   \:::\____\    
+    \:::\  /:::/    /               /:::/    /        \:::\  /:::/    /    
+     \:::\/:::/    /               /:::/    /          \:::\/:::/    /     
+      \::::::/    /               /:::/    /            \::::::/    /      
+       \::::/    /               /:::/    /              \::::/    /       
+        \::/    /                \::/    /                \::/    /        
+         \/____/                  \/____/                  \/____/         
+                                                                           )";
+    cout<< fg::cyan<<s<<"\n"<<"School Managemt system"<<"\n";
     menu_display();
     cout << fg::red << " Enter your choice> ";
     int n;
@@ -446,6 +470,8 @@ handle(int n)
             break;
         case 3:
             marks_menu();
+        case 4:
+             student_management_menu();
     }
 }
 void
@@ -533,4 +559,76 @@ marks_menu()
                 break;
         }
     }
+}
+void student_management_menu(){
+bool loop=true;
+vector<student> nst;
+    TextTable t('-', '|', '#');
+    t.add("Marks Management Menu");
+    TextTable menu('-', ' ', ' ');
+    t.endOfRow();
+    menu.add("Enter 1 for");
+    menu.add("Student Management Creation");
+    menu.endOfRow();
+    menu.add("Enter 2 for");
+    menu.add("Student Management Displaying");
+    menu.endOfRow();
+    menu.add("Enter 3 for");
+    menu.add("Student Management Average Of Each Student");
+    menu.endOfRow();
+    menu.add("Enter 4 for");
+    menu.add("Student Management Best Of Each Student");
+    menu.endOfRow();
+    menu.add("Enter 5 for");
+    menu.add("Marks Management Worst Of Each Student");
+    menu.endOfRow();
+    menu.add("Enter 6 for");
+    menu.add("Student Management Best Of Each Course");
+    menu.endOfRow();
+    menu.add("Enter 7 for");
+    menu.add("Student Management Worst Of Each Course");
+    menu.add("Enter 8 to");
+    menu.add("CLose");
+    menu.endOfRow();
+    menu.setAlignment(0, TextTable::Alignment::LEFT);
+    t.setAlignment(2, TextTable::Alignment::LEFT);
+    cout << fg::green << t << fg::blue << menu;
+    int choice;
+    int n;
+    while (loop) {
+        cout << fg::blue << "Enter your choice> ";
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                nst=student_management_create();	
+                break;
+            case 2:
+                 cout<< fg::green<< "Enter the number n of students to display\n";
+                 student_management_display(nst,2);
+                 break;
+            case 3:
+                 student_management_av(nst);
+                 break;
+            case 4:
+                 student_management_best(nst);
+                 break;
+            case 5:
+                  student_management_worst(nst);
+                  break;
+            case 6:
+                  cout<< "coming soon\n";
+                  break;
+            case 7:
+                  cout<<"coming soon\n";
+                  break;
+            case 8:
+                  loop=false;
+                  break;
+            default:
+                 continue;
+                 break;
+
+        }
+ 
+}
 }
