@@ -15,7 +15,7 @@ student_management();
 void
 menu_display();
 void
-handle(int n);
+handle();
 void
 print_vec(std::vector<int> v);
 void
@@ -129,10 +129,7 @@ main()
                                                                            )";
     cout<< fg::cyan<<s<<"\n"<<"School Managemt system"<<"\n";
     menu_display();
-    cout << fg::red << " Enter your choice> ";
-    int n;
-    cin >> n;
-    handle(n);
+    handle();
 }
 
 void
@@ -141,7 +138,7 @@ course_credit_management()
     cout << fg::green
          << "--------- Course credit management system ---------------\n";
     int m;
-    cout << fg::green << "enter the value of m: ";
+    cout << fg::green << "enter the value of m> ";
     cin >> m;
     assert(m > 6 && "m must be bigger than 6");
     assert(m < 15 && "m must be less than 15");
@@ -150,9 +147,9 @@ course_credit_management()
     course cc[m];
     while (m > 0) {
         cout << fg::green << "----- Course n0" << n - m << " ------\n";
-        cout << fg::green << "Enter the value of the credit: ";
+        cout << fg::green << "Enter the value of the credit> ";
         cin >> cc[n - m - 1].credit;
-        cout << fg::green << "Enter the value of the title: ";
+        cout << fg::green << "Enter the value of the title> ";
         cin >> cc[n - m - 1].title;
         sum += cc[n - m - 1].credit;
         m--;
@@ -173,29 +170,29 @@ student_management()
 {
     date dd;
     cout << fg::green << "-------- Student management system --------\n\n";
-    cout << fg::green << "enter the year: ";
+    cout << fg::green << "enter the year> ";
     cin >> dd.year;
-    cout << fg::green << "\nenter the month: ";
+    cout << fg::green << "enter the month> ";
     cin >> dd.month;
-    cout << fg::green << "\nenter the day: ";
+    cout << fg::green << "enter the day> ";
     cin >> dd.day;
     assert(dd.is_valid() && "the data you entered is not valid");
     dd.print();
     cout << fg::green << "\n\n----- Create a new student ----- ";
-    cout << fg::green << "\n----> Enter his name: ";
+    cout << fg::green << "Enter his name> ";
     char name[20];
     cin >> name;
-    cout << fg::green << "\n----> Enter the surname: ";
+    cout << fg::green << "Enter the surname> ";
     char surname[20];
     cin >> surname;
-    cout << fg::green << "\n----> Enter the address: ";
+    cout << fg::green << "Enter the address> ";
     char address[20];
     cin >> address;
-    cout << fg::green << "----> Enter the registration number: ";
+    cout << fg::green << "Enter the registration number> ";
     int reg = 0;
     cin >> reg;
     int m;
-    cout << fg::green << "enter the number 'm' of courses: ";
+    cout << fg::green << "enter the number 'm' of courses> ";
     cin >> m;
     assert(m > 6 && "m must be bigger than 6");
     assert(m < 15 && "m must be less than 15");
@@ -203,21 +200,21 @@ student_management()
     course cc[m];
     while (m > 0) {
         cout << fg::green << "----- Course n0" << n - m << " ------\n";
-        cout << fg::green << "Enter the value of the credit: ";
+        cout << fg::green << "Enter the value of the credit> ";
         cin >> cc[n - m - 1].credit;
-        cout << fg::green << "Enter the value of the title: ";
+        cout << fg::green << "Enter the value of the title> ";
         cin >> cc[n - m - 1].title;
-        cout << fg::green << "Enter the value of the mark: ";
+        cout << fg::green << "Enter the value of the mark> ";
         cin >> cc[n - m - 1].mark;
         cout << fg::green << "\n\n";
         m--;
     }
     student st = student(reg, name, surname, address, cc, dd);
     cout << fg::green << "\n\n\n";
-    cout << fg::green << "Name: " << st.name << "\n";
-    cout << fg::green << "Surname: " << st.surname << "\n";
-    cout << fg::green << "Address: " << st.address << "\n";
-    cout << fg::green << "Registration number: " << st.registration_number
+    cout << fg::green << "Name> " << st.name << "\n";
+    cout << fg::green << "Surname> " << st.surname << "\n";
+    cout << fg::green << "Address> " << st.address << "\n";
+    cout << fg::green << "Registration number> " << st.registration_number
          << "\n";
     st.date_of_birth.print();
     cout << fg::green << "do you wish to change students characteristics?y/n";
@@ -252,15 +249,14 @@ marks_management_create()
     int m = 0;
     course *cc = new course();
     cout << fg::green << "---- Course  marks management ----\n";
-    cout << fg::green << "Enter the number of courses\n";
+    cout << fg::green << "Enter the number of courses> ";
     cin >> m;
     int n = m + 1;
     while (m) {
-        cout << fg::green << "Enter the title of the course number " << n - m
-             << "\n";
+        cout << fg::green << "Enter the title of the course number" << n - m<< "> ";
         cin >> cc[n - m - 1].title;
         cout << fg::green << "Enter the marks of the student in course number "
-             << n - m << "\n";
+             << n - m<< "> " ;
         cin >> cc[n - m - 1].mark;
         M_LENGHT += 1;
         m--;
@@ -354,7 +350,7 @@ vector<student>
 student_management_create()
 {
     vector<student> all;
-    cout << fg::green << "enter the number of students";
+    cout << fg::green << "enter the number of students> ";
     int n;
     cin >> n;
     int m = n + 1;
@@ -408,8 +404,9 @@ student_management_av(vector<student> v)
     int n = v.size();
     int m = n;
     while (m) {
-        cout << fg::green << "Average of " << v[n - m].name << " "
-             << v[n - m].surname << marks_management_av(v[n - m].course_marks);
+        cout << fg::green << "The Average Mark of " << v[n - m].name << " "
+             << v[n - m].surname << " is "<< marks_management_av(v[n - m].course_marks);
+             m--;
     }
 }
 void
@@ -418,9 +415,10 @@ student_management_best(vector<student> v)
     int n = v.size();
     int m = n;
     while (m) {
-        cout << fg::green << "Best of " << v[n - m].name << " "
-             << v[n - m].surname
+        cout << fg::green << "The Best of " << v[n - m].name << " "
+             << v[n - m].surname<< " is "
              << marks_management_best(v[n - m].course_marks);
+             m--;
     }
 }
 void
@@ -429,9 +427,10 @@ student_management_worst(vector<student> v)
     int n = v.size();
     int m = n;
     while (m) {
-        cout << fg::green << "Worst of " << v[n - m].name << " "
-             << v[n - m].surname
-             << marks_management_worst(v[n - m].course_marks);
+        cout << fg::green << "The Worst mark of " << v[n - m].name << " "
+             << v[n - m].surname << " is "
+             << marks_management_worst(v[n - m].course_marks)<<"\n";
+             m--;
     }
 }
 
@@ -454,13 +453,21 @@ menu_display()
     menu.add("Enter 4 for");
     menu.add("Class student Management");
     menu.endOfRow();
+    menu.add("Enter 5 to");
+    menu.add("Exit");
+    menu.endOfRow();
     menu.setAlignment(0, TextTable::Alignment::LEFT);
     t.setAlignment(2, TextTable::Alignment::LEFT);
     cout << fg::green << t << fg::blue << menu;
 }
 void
-handle(int n)
+handle()
 {
+  bool looping=true;
+  while(looping){
+  	cout << fg::red << " Enter your choice> ";
+    int n;
+    cin >> n;
     switch (n) {
         case 1:
             course_credit_management();
@@ -470,10 +477,18 @@ handle(int n)
             break;
         case 3:
             marks_menu();
+            break;
         case 4:
              student_management_menu();
+             break;
+        case 5:
+             looping=false;
+             break;
+        default: 
+              cout<<fg::red<<"You entered an invalid choice, try again"<<"\n";
+              break;
     }
-}
+}}
 void
 print_vec(std::vector<int> v)
 {
@@ -516,6 +531,7 @@ marks_menu()
     menu.endOfRow();
     menu.add("Enter 7 for");
     menu.add("Marks Management Below Average");
+    menu.endOfRow();
     menu.add("Enter 8 to");
     menu.add("CLose");
     menu.endOfRow();
@@ -603,8 +619,9 @@ vector<student> nst;
                 nst=student_management_create();	
                 break;
             case 2:
-                 cout<< fg::green<< "Enter the number n of students to display\n";
-                 student_management_display(nst,2);
+                 cout<< fg::green<< "Enter the number n of students to display> ";
+                 cin>>n;
+                 student_management_display(nst,n);
                  break;
             case 3:
                  student_management_av(nst);
