@@ -140,8 +140,8 @@ course_credit_management()
     int m;
     cout << fg::green << "enter the value of m> ";
     cin >> m;
-    assert(m > 6 && "m must be bigger than 6");
-    assert(m < 15 && "m must be less than 15");
+    if(m > 6) cout<< fg::red<<"m must be bigger than 6\n";
+    if(m < 15)cout<< fg::red<< "m must be less than 15\n";
     int n = m + 1;
     int sum = 0;
     course cc[m];
@@ -154,7 +154,7 @@ course_credit_management()
         sum += cc[n - m - 1].credit;
         m--;
     }
-    assert(sum == 30 && "Credit sum must be equal to 30");
+   if(sum == 30) cout<<fg::red<< "Credit sum must be equal to 30\n";
     m = n - 1;
     cout << fg::green << "\n-----------------Result-------------\n";
     while (m > 0) {
@@ -176,7 +176,7 @@ student_management()
     cin >> dd.month;
     cout << fg::green << "enter the day> ";
     cin >> dd.day;
-    assert(dd.is_valid() && "the data you entered is not valid");
+    if(!dd.is_valid()) cout<<fg::red << "the data you entered is not valid";
     dd.print();
     cout << fg::green << "\n\n----- Create a new student ----- ";
     cout << fg::green << "Enter his name> ";
@@ -194,8 +194,8 @@ student_management()
     int m;
     cout << fg::green << "enter the number 'm' of courses> ";
     cin >> m;
-    assert(m > 6 && "m must be bigger than 6");
-    assert(m < 15 && "m must be less than 15");
+    if(m > 6)  cout<< fg::red<<"m must be bigger than 6\n";
+    if(m < 15) cout<<fg::red<< "m must be less than 15\n";
     int n = m + 1;
     course cc[m];
     while (m > 0) {
@@ -360,7 +360,7 @@ student_management_create()
     char *address = new char();
     date dt;
     course *course_marks = new course();
-    assert(n > 0 && "n must be greater than 0");
+    if (n > 0) cout<<fg::red<< "n must be greater than 0\n";
     while (n) {
         cout << fg::green << "---- Student number ----" << m - n << "\n";
         cout << fg::green << "Enter the name> ";
